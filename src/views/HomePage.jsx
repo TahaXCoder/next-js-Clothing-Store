@@ -91,7 +91,6 @@ export default function HomePage() {
             </motion.div>
             <motion.div
               className="hero-tile hero-tile-2"
-              data-sale-trigger="true"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.35, duration: 0.7 }}
