@@ -13,34 +13,45 @@
   flex-direction: column;
   justify-content: center;
   padding: var(--sp-16) var(--sp-12);
-  background:
-    url('/images/hero/hero-promo-model.jpg') right bottom / auto 90% no-repeat,
-    var(--color-linen);
+  background: var(--color-linen);
   border-right: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
 
-/* Soft left-to-right veil so dark text stays readable over the photo */
+/* Model photo – absolutely fills the right ~55% of the promo block */
+.hero-promo::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background:
+    url('/images/hero/hero-promo-model.jpg') center top / cover no-repeat;
+  z-index: 0;
+}
+
+/* Left-to-right veil: solid linen on left → transparent on right so model shows clearly */
 .hero-promo::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    var(--color-linen) 38%,
-    rgba(239, 235, 228, 0.78) 60%,
-    rgba(239, 235, 228, 0.25) 80%,
-    transparent 100%
+    var(--color-linen)        30%,
+    rgba(239, 235, 228, 0.92) 48%,
+    rgba(239, 235, 228, 0.35) 68%,
+    transparent               100%
   );
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
-/* Keep all direct children above the veil */
+/* Keep all direct children above both pseudo-elements */
 .hero-promo > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-eyebrow {
@@ -267,6 +278,17 @@
 @media (max-width: 768px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-promo { padding: var(--sp-12) var(--sp-6); min-height: 60vh; }
+  /* On mobile the promo stacks full-width — keep model but shrink the veil break */
+  .hero-promo::after { width: 50%; background-position: center top; }
+  .hero-promo::before {
+    background: linear-gradient(
+      to right,
+      var(--color-linen)        20%,
+      rgba(239, 235, 228, 0.88) 42%,
+      rgba(239, 235, 228, 0.3)  65%,
+      transparent               100%
+    );
+  }
   .hero-tiles { grid-template-rows: none; grid-template-columns: 1fr 1fr; min-height: 50vw; }
   .brand-story-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
