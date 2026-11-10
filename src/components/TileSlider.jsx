@@ -24,7 +24,7 @@ export default function TileSlider({
   startDelay = 0,
   fallbackClass = '',
 }) {
-  const [current, setCurrent] = useState(0);
+  const [[current, direction], setSlideState] = useState([0, 1]);
   const [paused, setPaused] = useState(false);
   // Track which slides had an image-load error
   const [errored, setErrored] = useState(() => new Set());
@@ -37,11 +37,15 @@ export default function TileSlider({
 
   // ── Advance helpers ────────────────────────────────────────────────────────
   const goTo = useCallback((index) => {
-    setCurrent(index);
+    setSlideState(([prev]) => [index, index > prev ? 1 : -1]);
   }, []);
 
   const advance = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % total);
+    setSlideState(([prev]) => [(prev + 1) % total, 1]);
+  }, [total]);
+
+  const goPrev = useCallback(() => {
+    setSlideState(([prev]) => [(prev - 1 + total) % total, -1]);
   }, [total]);
 
   // ── Auto-advance timer ─────────────────────────────────────────────────────
@@ -74,6 +78,7 @@ export default function TileSlider({
 
   // Restart timer whenever current slide is set via dot click
   const handleDotClick = (index) => {
+    if (index === current) return;
     goTo(index);
     stopTimer();
     if (!prefersReduced) {
@@ -82,34 +87,49 @@ export default function TileSlider({
   };
 
   // ── Touch / drag swipe ─────────────────────────────────────────────────────
-  const dragThreshold = 60; // px
+  const dragThreshold = 50; // px
 
   const handleDragEnd = (_e, info) => {
     if (info.offset.x < -dragThreshold) {
-      setCurrent((prev) => (prev + 1) % total);
+      advance();
     } else if (info.offset.x > dragThreshold) {
-      setCurrent((prev) => (prev - 1 + total) % total);
+      goPrev();
     }
     // Restart timer after drag
     stopTimer();
     if (!prefersReduced && !paused) startTimer();
   };
 
-  // ── Slide variants ─────────────────────────────────────────────────────────
+  // ── Slide variants (Physical horizontal slide) ─────────────────────────────
   const slideVariants = {
-    enter: { opacity: 0 },
+    enter: (dir) => ({
+      x: prefersReduced ? 0 : (dir > 0 ? '100%' : '-100%'),
+      opacity: prefersReduced ? 1 : 0.85,
+    }),
     center: {
+      x: 0,
       opacity: 1,
-      transition: { duration: prefersReduced ? 0 : 0.9, ease: 'easeInOut' },
+      transition: prefersReduced
+        ? { duration: 0 }
+        : {
+            x: { duration: 0.75, ease: [0.25, 1, 0.5, 1] },
+            opacity: { duration: 0.4 },
+          },
     },
-    exit: {
-      opacity: 0,
-      transition: { duration: prefersReduced ? 0 : 0.9, ease: 'easeInOut' },
-    },
+    exit: (dir) => ({
+      x: prefersReduced ? 0 : (dir > 0 ? '-100%' : '100%'),
+      opacity: prefersReduced ? 0 : 0.85,
+      transition: prefersReduced
+        ? { duration: 0 }
+        : {
+            x: { duration: 0.75, ease: [0.25, 1, 0.5, 1] },
+            opacity: { duration: 0.4 },
+          },
+    }),
   };
 
   const kenBurnsVariants = {
-    start: { scale: prefersReduced ? 1 : 1.08 },
+    start: { scale: prefersReduced ? 1 : 1.06 },
     end:   { scale: 1 },
   };
 
@@ -126,10 +146,11 @@ export default function TileSlider({
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {/* Slides */}
-      <AnimatePresence initial={false}>
+      {/* Slides with custom direction */}
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={current}
+          custom={direction}
           className="tile-slider__slide"
           variants={slideVariants}
           initial="enter"
@@ -137,7 +158,7 @@ export default function TileSlider({
           exit="exit"
           drag={prefersReduced ? false : 'x'}
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.15}
+          dragElastic={0.2}
           onDragEnd={handleDragEnd}
         >
           {/* Ken Burns zoom wrapper */}

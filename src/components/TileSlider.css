@@ -21,6 +21,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: pan-y;
+  will-change: transform;
 }
 
 /* Ken Burns scale wrapper – must be absolute to fill the slide */
