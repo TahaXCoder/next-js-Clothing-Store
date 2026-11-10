@@ -260,23 +260,79 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--color-linen);
-  border: 1px solid var(--border);
+  background:
+    url('/images/winter-sale-banner.jpg') center / cover no-repeat,
+    var(--color-dark);
+  border: 1px solid rgba(200, 106, 75, 0.35);
   border-radius: var(--radius-lg);
   padding: var(--sp-12) var(--sp-12);
   gap: var(--sp-8);
+  overflow: hidden;
+}
+
+/* Dark cinematic vignette overlay ensuring 100% crystal-clear text readability */
+.sale-banner-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 12, 10, 0.88) 0%,
+    rgba(15, 12, 10, 0.72) 48%,
+    rgba(15, 12, 10, 0.42) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure all content sits above the image overlay */
+.sale-banner-inner > * {
+  position: relative;
+  z-index: 2;
+}
+
+.sale-banner .section-label {
+  color: var(--color-rust);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .sale-banner-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 900;
-  color: var(--color-dark);
+  color: #ffffff;
   line-height: 1.1;
   margin: var(--sp-3) 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 .sale-banner-title span { color: var(--color-rust); }
-.sale-banner-sub { font-size: 14px; color: var(--color-taupe); }
+
+.sale-banner-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sale-banner-inner .btn-primary {
+  background: var(--color-rust);
+  border-color: var(--color-rust);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(200, 106, 75, 0.4);
+  font-weight: 700;
+  transition: all var(--transition, 0.3s ease);
+}
+
+.sale-banner-inner .btn-primary:hover {
+  background: #ffffff;
+  color: var(--color-dark);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.3);
+}
 
 /* Responsive */
 @media (max-width: 1024px) {
@@ -296,6 +352,13 @@
   .brand-story-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
   .sale-banner-inner { flex-direction: column; padding: var(--sp-8); }
+  .sale-banner-inner::before {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 12, 10, 0.88) 0%,
+      rgba(15, 12, 10, 0.72) 100%
+    );
+  }
 }
 @media (max-width: 480px) {
   .products-grid-4 { grid-template-columns: 1fr; }
