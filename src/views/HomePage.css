@@ -76,6 +76,24 @@
 
 .hero-actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
 
+.hero-promo .btn-ghost {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(31, 26, 23, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition, 0.3s ease);
+}
+
+.hero-promo .btn-ghost:hover {
+  background: #ffffff;
+  color: var(--color-dark);
+  border-color: #ffffff;
+  text-shadow: none;
+}
+
 /* Portrait tiles */
 .hero-tiles {
   display: grid;
