@@ -7,10 +7,9 @@ import './SaleAudioPlayer.css';
 /**
  * SaleAudioPlayer
  *
- * Controls ambient audio for the "Winter is Coming" Sale section.
- * - Plays on hover (if browser allows) or immediately on click.
- * - Shows an interactive Mute / Unmute button.
- * - Gentle fade-in and instant mute controls.
+ * Automatically plays the Winter is Coming Sale audio
+ * whenever the user arrives on the sale section (scroll into view, hover, or click).
+ * Provides an instant Mute / Unmute toggle button (only two options).
  */
 export default function SaleAudioPlayer({
   src = '/audio/winter-sale.mp3',
@@ -18,27 +17,65 @@ export default function SaleAudioPlayer({
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [showButton, setShowButton] = useState(false);
   const audioRef = useRef(null);
+  const isUnlockedRef = useRef(false);
+  const isMutedRef = useRef(false);
 
-  // Play audio safely (handling browser autoplay policies)
+  // Keep isMutedRef in sync with state for event callbacks
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  // Pre-unlock browser media autoplay policy on first user interaction anywhere on the page
+  useEffect(() => {
+    const unlockAudio = () => {
+      if (isUnlockedRef.current || !audioRef.current) return;
+      isUnlockedRef.current = true;
+
+      // Quick silent play/pause to satisfy Chrome/Edge autoplay policy
+      const currentVol = audioRef.current.volume;
+      audioRef.current.volume = 0;
+      const p = audioRef.current.play();
+      if (p !== undefined) {
+        p.then(() => {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+          audioRef.current.volume = currentVol;
+        }).catch(() => {
+          isUnlockedRef.current = false;
+        });
+      }
+
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('scroll', unlockAudio);
+    };
+
+    window.addEventListener('pointerdown', unlockAudio);
+    window.addEventListener('keydown', unlockAudio);
+    window.addEventListener('scroll', unlockAudio, { passive: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('scroll', unlockAudio);
+    };
+  }, []);
+
   const playAudio = useCallback(() => {
     if (!audioRef.current) return;
-    setShowButton(true);
+    if (isMutedRef.current) return; // Do not auto-play if user explicitly muted
 
-    if (audioRef.current.paused) {
-      audioRef.current.currentTime = audioRef.current.currentTime || 0;
-      const promise = audioRef.current.play();
-      if (promise !== undefined) {
-        promise
-          .then(() => {
-            setIsPlaying(true);
-          })
-          .catch(() => {
-            // Browser blocked hover-autoplay prior to first interaction.
-            // Will play upon direct user click.
-          });
-      }
+    audioRef.current.muted = false;
+    const promise = audioRef.current.play();
+    if (promise !== undefined) {
+      promise
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          // If browser requires explicit gesture, will resume on hover/touch
+        });
     }
   }, []);
 
@@ -48,24 +85,53 @@ export default function SaleAudioPlayer({
     setIsPlaying(false);
   }, []);
 
-  // Toggle Mute / Unmute
+  // Toggle Mute / Unmute (only two options)
   const toggleMute = (e) => {
     e.stopPropagation();
     if (!audioRef.current) return;
 
     if (isMuted) {
+      // Unmute
       audioRef.current.muted = false;
       setIsMuted(false);
-      if (audioRef.current.paused) {
-        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
+      isMutedRef.current = false;
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
     } else {
+      // Mute
       audioRef.current.muted = true;
       setIsMuted(true);
+      isMutedRef.current = true;
+      audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
-  // Attach hover and click listeners to the parent section and any sale triggers
+  // 1. Automatically play when user scrolls down and arrives at the sale banner
+  useEffect(() => {
+    const target = targetRef?.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playAudio();
+          } else {
+            pauseAudio();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [targetRef, playAudio, pauseAudio]);
+
+  // 2. Automatically play when cursor arrives (hover or click) on the sale section or hero sale tile
   useEffect(() => {
     const elements = [];
     if (targetRef?.current) elements.push(targetRef.current);
@@ -73,32 +139,27 @@ export default function SaleAudioPlayer({
     const extraTriggers = document.querySelectorAll('[data-sale-trigger="true"]');
     extraTriggers.forEach((el) => elements.push(el));
 
-    const handleMouseEnter = () => {
-      setShowButton(true);
+    const handleArrive = () => {
       playAudio();
     };
 
-    const handleMouseLeave = () => {
-      // Pause when cursor leaves the sale section
+    const handleLeave = () => {
       pauseAudio();
     };
 
-    const handleClick = () => {
-      setShowButton(true);
-      playAudio();
-    };
-
     elements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-      el.addEventListener('click', handleClick);
+      el.addEventListener('mouseenter', handleArrive);
+      el.addEventListener('mousemove', handleArrive, { once: true });
+      el.addEventListener('mouseleave', handleLeave);
+      el.addEventListener('click', handleArrive);
     });
 
     return () => {
       elements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-        el.removeEventListener('click', handleClick);
+        el.removeEventListener('mouseenter', handleArrive);
+        el.removeEventListener('mousemove', handleArrive);
+        el.removeEventListener('mouseleave', handleLeave);
+        el.removeEventListener('click', handleArrive);
       });
     };
   }, [targetRef, playAudio, pauseAudio]);
@@ -112,19 +173,19 @@ export default function SaleAudioPlayer({
         preload="auto"
       />
 
-      {/* Mute / Unmute Button */}
+      {/* Mute / Unmute Button: ONLY MUTE or UNMUTE */}
       <button
         type="button"
-        className={`sale-audio-btn ${showButton ? 'sale-audio-btn--visible' : ''} ${isPlaying && !isMuted ? 'sale-audio-btn--active' : ''}`}
+        className={`sale-audio-btn ${isPlaying && !isMuted ? 'sale-audio-btn--active' : ''}`}
         onClick={toggleMute}
-        aria-label={isMuted ? 'Unmute sale sound' : 'Mute sale sound'}
-        title={isMuted ? 'Unmute sound' : 'Mute sound'}
+        aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+        title={isMuted ? 'Click to Unmute' : 'Click to Mute'}
       >
         <span className="sale-audio-btn__icon">
           {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
         </span>
         <span className="sale-audio-btn__label">
-          {isMuted ? 'Muted' : isPlaying ? 'Sound On' : 'Play Sound'}
+          {isMuted ? 'Unmute' : 'Mute'}
         </span>
         {isPlaying && !isMuted && (
           <span className="sale-audio-waves" aria-hidden="true">
