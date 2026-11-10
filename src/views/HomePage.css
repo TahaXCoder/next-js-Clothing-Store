@@ -19,31 +19,21 @@
   overflow: hidden;
 }
 
-/* Model photo – absolutely fills the right ~55% of the promo block */
+/* Model photo – covers the entire promo block */
 .hero-promo::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 60%;
-  height: 100%;
-  background:
-    url('/images/hero/hero-promo-model.jpg') center top / cover no-repeat;
+  inset: 0;
+  background: url('/images/hero/hero-promo-model.jpg') center top / cover no-repeat;
   z-index: 0;
 }
 
-/* Left-to-right veil: solid linen on left → transparent on right so model shows clearly */
+/* Very subtle dark tint so the dark text stays legible over the photo */
 .hero-promo::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    var(--color-linen)        18%,
-    rgba(239, 235, 228, 0.55) 38%,
-    rgba(239, 235, 228, 0.08) 55%,
-    transparent               70%
-  );
+  background: rgba(239, 235, 228, 0.42);
   pointer-events: none;
   z-index: 1;
 }
@@ -278,17 +268,9 @@
 @media (max-width: 768px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-promo { padding: var(--sp-12) var(--sp-6); min-height: 60vh; }
-  /* On mobile the promo stacks full-width — keep model but shrink the veil break */
-  .hero-promo::after { width: 50%; background-position: center top; }
-  .hero-promo::before {
-    background: linear-gradient(
-      to right,
-      var(--color-linen)        18%,
-      rgba(239, 235, 228, 0.5)  38%,
-      rgba(239, 235, 228, 0.08) 58%,
-      transparent               75%
-    );
-  }
+  /* On mobile keep same full-cover approach */
+  .hero-promo::after { background-position: 65% top; }
+  .hero-promo::before { background: rgba(239, 235, 228, 0.45); }
   .hero-tiles { grid-template-rows: none; grid-template-columns: 1fr 1fr; min-height: 50vw; }
   .brand-story-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
