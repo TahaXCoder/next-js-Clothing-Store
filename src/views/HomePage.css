@@ -256,6 +256,7 @@
   background: var(--bg-main);
 }
 .sale-banner-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;

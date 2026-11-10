@@ -1,0 +1,110 @@
+/* ══════════════════════════════════════════════════════
+   SaleAudioPlayer – Mute / Unmute Interactive Controller
+   ══════════════════════════════════════════════════════ */
+
+.sale-audio-btn {
+  position: absolute;
+  top: var(--sp-4, 16px);
+  right: var(--sp-4, 16px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(31, 26, 23, 0.85);
+  color: var(--color-white, #ffffff);
+  border: 1px solid rgba(228, 220, 208, 0.35);
+  border-radius: var(--radius-full, 9999px);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.85;
+  transform: translateY(0);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.sale-audio-btn:hover {
+  opacity: 1;
+  background: var(--color-dark, #1F1A17);
+  border-color: var(--color-rust, #C86A4B);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 106, 75, 0.25);
+}
+
+.sale-audio-btn--active {
+  border-color: var(--color-rust, #C86A4B);
+  opacity: 1;
+}
+
+.sale-audio-btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-rust, #C86A4B);
+}
+
+.sale-audio-btn__label {
+  line-height: 1;
+}
+
+/* Animated sound wave bars when audio is playing */
+.sale-audio-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 2px;
+}
+
+.wave-bar {
+  width: 2px;
+  background: var(--color-rust, #C86A4B);
+  border-radius: 1px;
+  animation: soundWave 0.8s ease-in-out infinite alternate;
+}
+
+.wave-bar.bar-1 {
+  height: 4px;
+  animation-delay: 0s;
+}
+
+.wave-bar.bar-2 {
+  height: 10px;
+  animation-delay: 0.2s;
+}
+
+.wave-bar.bar-3 {
+  height: 6px;
+  animation-delay: 0.4s;
+}
+
+@keyframes soundWave {
+  0% {
+    height: 3px;
+  }
+  100% {
+    height: 12px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .wave-bar {
+    animation: none;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sale-audio-btn {
+    top: var(--sp-3, 12px);
+    right: var(--sp-3, 12px);
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}

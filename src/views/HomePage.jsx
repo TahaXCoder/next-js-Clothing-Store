@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
@@ -8,6 +8,7 @@ import { normalizeProducts } from '../lib/normalize';
 import { api } from '../api';
 import ProductCard from '../components/ProductCard';
 import TileSlider from '../components/TileSlider';
+import SaleAudioPlayer from '../components/SaleAudioPlayer';
 import { menSlides, saleSlides } from '../data/heroSlides';
 import './HomePage.css';
 
@@ -21,6 +22,7 @@ const fadeUp = {
 
 export default function HomePage() {
   const [productList, setProductList] = useState(() => normalizeProducts(products));
+  const saleBannerRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -89,6 +91,7 @@ export default function HomePage() {
             </motion.div>
             <motion.div
               className="hero-tile hero-tile-2"
+              data-sale-trigger="true"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.35, duration: 0.7 }}
@@ -205,11 +208,13 @@ export default function HomePage() {
         <div className="container">
           <motion.div
             className="sale-banner-inner"
+            ref={saleBannerRef}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
           >
+            <SaleAudioPlayer targetRef={saleBannerRef} />
             <div>
               <p className="section-label">Limited Time</p>
               <h2 className="sale-banner-title">
