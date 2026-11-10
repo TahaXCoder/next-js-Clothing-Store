@@ -1,0 +1,291 @@
+/* ── HERO ── */
+.hero { padding: 0; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 72px);
+  background: var(--bg-main);
+}
+
+.hero-promo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--sp-16) var(--sp-12);
+  background: var(--color-linen);
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--sp-4);
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--color-dark);
+  margin-bottom: var(--sp-6);
+  letter-spacing: -0.02em;
+}
+
+.hero-headline-gold {
+  color: var(--color-rust);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--color-taupe);
+  margin-bottom: var(--sp-8);
+  max-width: 380px;
+  line-height: 1.7;
+}
+
+.hero-actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+
+/* Portrait tiles */
+.hero-tiles {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  background: var(--border);
+}
+
+.hero-tile {
+  position: relative;
+  overflow: hidden;
+}
+.hero-tile-1 {
+  background: linear-gradient(135deg, #3A4A3E 0%, #1F1A17 100%);
+}
+.hero-tile-2 {
+  background: linear-gradient(135deg, #C86A4B 0%, #7E7570 100%);
+}
+
+.hero-tile-overlay {
+  position: absolute;
+  bottom: var(--sp-6);
+  left: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.hero-tile-overlay p {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-white);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Announcement bar */
+.announcement-bar {
+  background: var(--color-rust);
+  color: var(--color-white);
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Sections */
+.section { 
+  padding: var(--sp-16) 0;
+  background: var(--bg-main);
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--sp-8);
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+/* Product grid 4-col */
+.products-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+}
+
+/* Brand Story */
+.brand-story {
+  padding: var(--sp-16) 0;
+  background: var(--color-linen);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+.brand-story-visual {
+  position: relative;
+}
+
+.brand-story-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #C86A4B 0%, #3A4A3E 60%, #1F1A17 100%);
+}
+
+.brand-story-accent-block {
+  position: absolute;
+  bottom: var(--sp-6);
+  right: var(--sp-4);
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: var(--sp-4) var(--sp-6);
+  border-radius: var(--radius-md);
+}
+.brand-story-accent-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-rust);
+}
+.brand-story-accent-label { font-size: 12px; font-weight: 600; opacity: 0.9; }
+
+.brand-story-text {
+  color: var(--color-taupe);
+  line-height: 1.8;
+  margin-bottom: var(--sp-4);
+}
+
+/* Values */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+
+.value-card {
+  background: var(--color-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  text-align: center;
+  transition: all var(--transition);
+}
+.value-card:hover {
+  border-color: var(--color-rust);
+  box-shadow: 0 10px 30px rgba(200, 106, 75, 0.1);
+  transform: translateY(-4px);
+}
+
+.value-icon {
+  width: 60px; height: 60px;
+  background: rgba(200, 106, 75, 0.1);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-rust);
+  margin: 0 auto var(--sp-4);
+}
+
+.value-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: var(--sp-2);
+}
+.value-desc { font-size: 14px; color: var(--color-taupe); line-height: 1.7; }
+
+/* Sale banner */
+.sale-banner { 
+  padding: var(--sp-16) 0; 
+  background: var(--bg-main);
+}
+.sale-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-linen);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-12) var(--sp-12);
+  gap: var(--sp-8);
+}
+
+.sale-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  color: var(--color-dark);
+  line-height: 1.1;
+  margin: var(--sp-3) 0;
+}
+.sale-banner-title span { color: var(--color-rust); }
+.sale-banner-sub { font-size: 14px; color: var(--color-taupe); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .products-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .hero-headline { font-size: 3.5rem; }
+}
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-promo { padding: var(--sp-12) var(--sp-6); min-height: 60vh; }
+  .hero-tiles { grid-template-rows: none; grid-template-columns: 1fr 1fr; min-height: 50vw; }
+  .brand-story-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+  .sale-banner-inner { flex-direction: column; padding: var(--sp-8); }
+}
+@media (max-width: 480px) {
+  .products-grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Hero tile slider extras ─────────────────────────────────────────────────
+   The .hero-tile already sets position:relative + overflow:hidden.
+   We only need to ensure the tile has a defined height when stacked on mobile
+   and that the TileSlider fills it completely.                               */
+
+/* On desktop the tile height is determined by the grid rows (1fr 1fr).
+   Give each tile an explicit aspect ratio so there is no layout shift
+   before the grid has sized.                                                 */
+.hero-tile {
+  aspect-ratio: 3 / 4; /* portrait – matches recommended photo ratio */
+}
+
+/* Make the TileSlider div fill its parent hero-tile */
+.hero-tile .tile-slider {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile: tiles stack horizontally under the promo block.
+   Give each a sensible min-height so they don't collapse.                   */
+@media (max-width: 768px) {
+  .hero-tile {
+    aspect-ratio: unset;
+    min-height: 44vw; /* ≈ half of viewport width, keeping them square-ish */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Stack tiles vertically on very small screens for better readability */
+  .hero-tiles {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .hero-tile {
+    min-height: 70vw;
+  }
+}
