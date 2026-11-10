@@ -213,7 +213,7 @@ export default function HomePage() {
             <div>
               <p className="section-label">Limited Time</p>
               <h2 className="sale-banner-title">
-                Flat <span>30%</span> Off<br />All Summer Stock
+                Flat <span>30%</span> Off<br />Winter is Coming Sale
               </h2>
               <p className="sale-banner-sub">In stores & online · While stock lasts</p>
             </div>

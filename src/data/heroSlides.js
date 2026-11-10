@@ -44,23 +44,23 @@ export const womenSlides = menSlides;
 export const saleSlides = [
   {
     src: '/images/hero/sale-1.jpg',
-    alt: 'Sale collection – look 1',
+    alt: 'Winter is Coming Sale – look 1',
     label: 'SALE',
-    title: 'Up to 30% Off',
+    title: 'Flat 30% Off',
     href: '/shop?sale=true',
   },
   {
     src: '/images/hero/sale-2.jpg',
-    alt: 'Sale collection – look 2',
+    alt: 'Winter is Coming Sale – look 2',
     label: 'SALE',
-    title: 'Up to 30% Off',
+    title: 'Flat 30% Off',
     href: '/shop?sale=true',
   },
   {
     src: '/images/hero/sale-3.jpg',
-    alt: 'Sale collection – look 3',
+    alt: 'Winter is Coming Sale – look 3',
     label: 'SALE',
-    title: 'Up to 30% Off',
+    title: 'Flat 30% Off',
     href: '/shop?sale=true',
   },
 ];
