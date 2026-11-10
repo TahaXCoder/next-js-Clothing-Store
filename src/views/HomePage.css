@@ -39,10 +39,10 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    var(--color-linen)        30%,
-    rgba(239, 235, 228, 0.92) 48%,
-    rgba(239, 235, 228, 0.35) 68%,
-    transparent               100%
+    var(--color-linen)        18%,
+    rgba(239, 235, 228, 0.55) 38%,
+    rgba(239, 235, 228, 0.08) 55%,
+    transparent               70%
   );
   pointer-events: none;
   z-index: 1;
@@ -283,10 +283,10 @@
   .hero-promo::before {
     background: linear-gradient(
       to right,
-      var(--color-linen)        20%,
-      rgba(239, 235, 228, 0.88) 42%,
-      rgba(239, 235, 228, 0.3)  65%,
-      transparent               100%
+      var(--color-linen)        18%,
+      rgba(239, 235, 228, 0.5)  38%,
+      rgba(239, 235, 228, 0.08) 58%,
+      transparent               75%
     );
   }
   .hero-tiles { grid-template-rows: none; grid-template-columns: 1fr 1fr; min-height: 50vw; }
