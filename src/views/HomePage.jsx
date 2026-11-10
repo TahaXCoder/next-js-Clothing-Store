@@ -82,7 +82,7 @@ export default function HomePage() {
             >
               <TileSlider
                 slides={menSlides}
-                interval={5000}
+                interval={3500}
                 startDelay={0}
                 fallbackClass="hero-tile-1"
               />
@@ -95,8 +95,8 @@ export default function HomePage() {
             >
               <TileSlider
                 slides={saleSlides}
-                interval={6500}
-                startDelay={1500}
+                interval={3500}
+                startDelay={1000}
                 fallbackClass="hero-tile-2"
               />
             </motion.div>
