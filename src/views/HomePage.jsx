@@ -24,6 +24,22 @@ export default function HomePage() {
   const [productList, setProductList] = useState(() => normalizeProducts(products));
   const saleBannerRef = useRef(null);
 
+  // Always start at the very top of the page on refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
+      const handleBeforeUnload = () => {
+        window.scrollTo(0, 0);
+      };
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+  }, []);
+
   useEffect(() => {
     let isMounted = true;
     api('/products')
