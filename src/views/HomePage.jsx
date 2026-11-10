@@ -8,7 +8,7 @@ import { normalizeProducts } from '../lib/normalize';
 import { api } from '../api';
 import ProductCard from '../components/ProductCard';
 import TileSlider from '../components/TileSlider';
-import { womenSlides, saleSlides } from '../data/heroSlides';
+import { menSlides, saleSlides } from '../data/heroSlides';
 import './HomePage.css';
 
 const fadeUp = {
@@ -81,7 +81,7 @@ export default function HomePage() {
               transition={{ delay: 0.2, duration: 0.7 }}
             >
               <TileSlider
-                slides={womenSlides}
+                slides={menSlides}
                 interval={5000}
                 startDelay={0}
                 fallbackClass="hero-tile-1"

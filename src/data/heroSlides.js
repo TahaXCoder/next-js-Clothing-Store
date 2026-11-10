@@ -14,29 +14,32 @@
  *   • Size   : ≤ 200 KB each
  */
 
-export const womenSlides = [
+export const menSlides = [
   {
-    src: '/images/hero/women-1.jpg',
-    alt: "Women's urban collection – look 1",
+    src: '/images/hero/men-1.jpg',
+    alt: "Men's urban collection – look 1",
     label: 'NEW IN',
-    title: "Women's Collection",
-    href: '/shop?category=Women',
+    title: "Men's Collection",
+    href: '/shop?category=Men',
   },
   {
-    src: '/images/hero/women-2.jpg',
-    alt: "Women's urban collection – look 2",
+    src: '/images/hero/men-2.jpg',
+    alt: "Men's urban collection – look 2",
     label: 'NEW IN',
-    title: "Women's Collection",
-    href: '/shop?category=Women',
+    title: "Men's Collection",
+    href: '/shop?category=Men',
   },
   {
-    src: '/images/hero/women-3.jpg',
-    alt: "Women's urban collection – look 3",
+    src: '/images/hero/men-3.jpg',
+    alt: "Men's urban collection – look 3",
     label: 'NEW IN',
-    title: "Women's Collection",
-    href: '/shop?category=Women',
+    title: "Men's Collection",
+    href: '/shop?category=Men',
   },
 ];
+
+// Alias for backwards compatibility
+export const womenSlides = menSlides;
 
 export const saleSlides = [
   {
@@ -61,3 +64,4 @@ export const saleSlides = [
     href: '/shop?sale=true',
   },
 ];
+
