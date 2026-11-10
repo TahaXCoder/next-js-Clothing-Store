@@ -13,10 +13,34 @@
   flex-direction: column;
   justify-content: center;
   padding: var(--sp-16) var(--sp-12);
-  background: var(--color-linen);
+  background:
+    url('/images/hero/hero-promo-model.jpg') right bottom / auto 90% no-repeat,
+    var(--color-linen);
   border-right: 1px solid var(--border);
   position: relative;
   overflow: hidden;
+}
+
+/* Soft left-to-right veil so dark text stays readable over the photo */
+.hero-promo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--color-linen) 38%,
+    rgba(239, 235, 228, 0.78) 60%,
+    rgba(239, 235, 228, 0.25) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep all direct children above the veil */
+.hero-promo > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-eyebrow {
