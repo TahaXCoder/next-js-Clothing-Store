@@ -183,18 +183,42 @@
 .brand-story-img {
   width: 100%;
   aspect-ratio: 4/5;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #C86A4B 0%, #3A4A3E 60%, #1F1A17 100%);
+  border-radius: var(--radius-xl, 20px);
+  background:
+    url('/images/brand-story.jpg') center top / cover no-repeat,
+    linear-gradient(135deg, #C86A4B 0%, #3A4A3E 60%, #1F1A17 100%);
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 40px rgba(31, 26, 23, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-story-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to top,
+    rgba(31, 26, 23, 0.45) 0%,
+    transparent 45%
+  );
+  pointer-events: none;
 }
 
 .brand-story-accent-block {
   position: absolute;
   bottom: var(--sp-6);
   right: var(--sp-4);
-  background: var(--color-dark);
+  background: rgba(31, 26, 23, 0.92);
   color: var(--color-white);
   padding: var(--sp-4) var(--sp-6);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(228, 220, 208, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 2;
 }
 .brand-story-accent-num {
   font-family: var(--font-display);
