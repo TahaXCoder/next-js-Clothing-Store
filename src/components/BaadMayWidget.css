@@ -1,0 +1,159 @@
+.baadmay-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--color-linen);
+  border: 1px solid var(--border);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin: 0.5rem 0;
+  transition: all var(--transition-fast);
+}
+
+.baadmay-widget:hover {
+  border-color: var(--color-rust);
+  background: var(--color-white);
+}
+
+.baadmay-badge {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  line-height: 1;
+}
+
+.baadmay-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  color: #F8C300; /* Baadmay signature gold accent */
+}
+
+.baadmay-text {
+  font-size: 0.8rem;
+  color: var(--color-dark);
+  flex: 1;
+}
+
+.baadmay-text strong {
+  color: var(--color-rust);
+}
+
+.baadmay-info-icon {
+  color: var(--color-taupe);
+}
+
+.baadmay-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  width: 440px;
+  max-width: 90vw;
+  z-index: 400;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.baadmay-close-btn {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  color: var(--color-taupe);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.baadmay-modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.baadmay-logo-large {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1F1A17;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.baadmay-modal-header h3 {
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  font-family: var(--font-display);
+}
+
+.baadmay-modal-header p {
+  font-size: 0.82rem;
+  color: var(--color-taupe);
+  margin-top: 0.25rem;
+}
+
+.baadmay-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: var(--color-linen);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.timeline-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.timeline-dot.active {
+  background: var(--color-rust);
+  color: #fff;
+}
+
+.timeline-item strong {
+  display: block;
+  color: var(--color-dark);
+}
+
+.timeline-item span {
+  font-size: 0.78rem;
+  color: var(--color-taupe);
+}
+
+.baadmay-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-dark);
+  margin-bottom: 1.5rem;
+}
+
+.baadmay-features div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

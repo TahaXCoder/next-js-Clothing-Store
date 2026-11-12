@@ -1,0 +1,32 @@
+.cart-reservation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(200, 106, 75, 0.12);
+  border: 1px solid var(--color-rust);
+  color: var(--color-rust);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.cart-reservation-bar strong {
+  font-weight: 800;
+  color: var(--color-dark);
+}
+
+.timer-icon {
+  color: var(--color-rust);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}

@@ -3,6 +3,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 First, run the development server:
+cd "D:\My Projects\zipup-next\web-app"
 
 ```bash
 npm run dev
